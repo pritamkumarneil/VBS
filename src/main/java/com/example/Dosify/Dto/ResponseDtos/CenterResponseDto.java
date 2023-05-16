@@ -11,4 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class CenterResponseDto {
     String name;
     String location;
+    String message;
 }

@@ -21,14 +21,15 @@ public class DoctorController {
 
     @PostMapping("add")
     public ResponseEntity addDoctor(@RequestBody DoctorRequestDto doctorRequestDto){
-        DoctorResponseDto doctorResponseDto= null;
+
         try {
-            doctorResponseDto = doctorService.addDoctor(doctorRequestDto);
+            DoctorResponseDto doctorResponseDto = doctorService.addDoctor(doctorRequestDto);
+            doctorResponseDto.setMessage("This Doctor Added Successfully");
+            return new ResponseEntity<>(doctorResponseDto, HttpStatus.CREATED);
+
         } catch (CenterNotPresentException e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
-        doctorResponseDto.setMessage("This Doctor Added Successfully");
-        return new ResponseEntity<>(doctorResponseDto, HttpStatus.CREATED);
     }
     @GetMapping("get-all")
     public ResponseEntity<List<DoctorResponseDto>> getAllDoctors(){

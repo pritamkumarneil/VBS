@@ -14,4 +14,12 @@ public interface UserService {
     public UserResponseDto getUserByEmailId(String emailId);
     public UserResponseDto updateUserByMobNo(String mobNo,String name);
     public List<UserResponseDto> getUsersWithNoVaccination();
+
+    List<UserResponseDto> getAllUserWithDose1Only();
+
+    List<UserResponseDto> getAllFullyVaccinatedUsers();
+
+    List<UserResponseDto> getAllMaleWithNoVaccination();
+
+    List<UserResponseDto> getAllFemaleFullyVaccinated();
 }

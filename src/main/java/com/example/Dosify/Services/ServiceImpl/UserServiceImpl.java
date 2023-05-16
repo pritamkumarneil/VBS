@@ -72,4 +72,39 @@ public class UserServiceImpl implements UserService {
         }
         return userResponseDtos;
     }
+
+    @Override
+    public List<UserResponseDto> getAllUserWithDose1Only() {
+        List<User> users=userRepository.getAllUserWithDose1Only();
+        List<UserResponseDto> ans=new ArrayList<>();
+        for(User user: users){
+            ans.add(UserTransfer.UserToUserResponseDto(user));
+        }
+        return ans;
+    }
+
+    @Override
+    public List<UserResponseDto> getAllFullyVaccinatedUsers() {
+        List<User> users=userRepository.findByIsDose2Taken(true);
+        List<UserResponseDto> userResponseDtos=new ArrayList<>();
+        for(User user: users){
+            userResponseDtos.add(UserTransfer.UserToUserResponseDto(user));
+        }
+        return userResponseDtos;
+    }
+
+    @Override
+    public List<UserResponseDto> getAllMaleWithNoVaccination() {
+        List<User> users=userRepository.getAllMaleWithNoVaccination();
+        List<UserResponseDto> userResponseDtos=new ArrayList<>();
+        for(User user: users) userResponseDtos.add(UserTransfer.UserToUserResponseDto(user));
+        return userResponseDtos;
+    }
+
+    @Override
+    public List<UserResponseDto> getAllFemaleFullyVaccinated() {
+        List<User> users= userRepository.findAllFemaleFullyVaccinated();
+        List<UserResponseDto> userResponseDtos=new ArrayList<>();
+        for(User user: users) userResponseDtos.add(UserTransfer.UserToUserResponseDto(user));
+        return userResponseDtos;    }
 }

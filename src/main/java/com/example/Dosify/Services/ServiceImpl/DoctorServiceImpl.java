@@ -30,13 +30,13 @@ public class DoctorServiceImpl implements DoctorService {
         // first get the center from center id;
 //        VaccinationCenter vaccinationCenter=centerRepository.findById(doctorRequestDto.getCenterId()).get();
 
-        Optional<VaccinationCenter> optionalCenter=centerRepository.findById(doctorRequestDto.getCenterId());
+        Optional<VaccinationCenter> optionalCenter = centerRepository.findById(doctorRequestDto.getCenterId());
         if(optionalCenter.isEmpty()){
             throw new CenterNotPresentException("Invalid Center Id");
         }
-        VaccinationCenter vaccinationCenter=optionalCenter.get();
+        VaccinationCenter vaccinationCenter = optionalCenter.get();
 
-        Doctor doctor= DoctorTransformer.doctorRequestDtoToDoctor(doctorRequestDto);
+        Doctor doctor = DoctorTransformer.doctorRequestDtoToDoctor(doctorRequestDto);
         // now mapping part
         vaccinationCenter.getDoctors().add(doctor);
         doctor.setVaccinationCenter(vaccinationCenter);

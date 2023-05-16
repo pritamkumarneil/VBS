@@ -44,8 +44,28 @@ public class UserController {
         return userService.getUsersWithNoVaccination();
     }
     // all user who have taken dose1 but not dose2
-
+    @GetMapping("users-with-dose1-only")
+    public ResponseEntity<List<UserResponseDto>> getAllUserWithDose1Only(){
+        List<UserResponseDto> userResponseDtos=userService.getAllUserWithDose1Only();
+        return new ResponseEntity<>(userResponseDtos,HttpStatus.FOUND);
+    }
     // All users who are fully vaccinated;
+    @GetMapping("get-fully-vaccinated-users")
+    public ResponseEntity<List<UserResponseDto>> getAllFullyVaccinatedUsers(){
+        List<UserResponseDto> userResponseDtos=userService.getAllFullyVaccinatedUsers();
+        return new ResponseEntity<>(userResponseDtos,HttpStatus.ACCEPTED);
+    }
     // all male users who  have not taken even a single dose;
+    @GetMapping("all-male-with-no-vaccine")
+    public ResponseEntity<List<UserResponseDto>> getAllMaleWithNoVaccination(){
+        List<UserResponseDto> userResponseDtos=userService.getAllMaleWithNoVaccination();
+        return new ResponseEntity<>(userResponseDtos,HttpStatus.ACCEPTED);
+    }
     // all female user who are fully vaccinated;
+    @GetMapping("all-female-fully-vaccinated")
+    public ResponseEntity<List<UserResponseDto>> getAllFemaleFullyVaccinated(){
+        List<UserResponseDto> userResponseDtos=userService.getAllFemaleFullyVaccinated();
+        return new ResponseEntity<>(userResponseDtos,HttpStatus.ACCEPTED);
+    }
+
 }
