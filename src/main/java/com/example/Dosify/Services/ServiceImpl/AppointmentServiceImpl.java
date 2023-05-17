@@ -15,6 +15,8 @@ import com.example.Dosify.Services.Dose1Service;
 import com.example.Dosify.Services.Dose2Service;
 import com.example.Dosify.Transformer.AppointmentTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,6 +32,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     Dose1Service dose1Service;
     @Autowired
     Dose2Service dose2Service;
+    @Autowired
+    private JavaMailSender emailSender;
     @Override
     public AppointmentResponseDto addAppointment(AppointmentRequestDto appointmentRequestDto) throws Exception{
         // first check if user exist or not with given user id;
@@ -72,9 +76,25 @@ public class AppointmentServiceImpl implements AppointmentService {
         doctor.getAppointments().add(appointment);
         appointment.setUser(user);
         user.getAppointments().add(appointment);
-
-        userRepository.save(user);
+        User savedUser=userRepository.save(user);
         doctorRepository.save(doctor);
+        // now send the mail to the user for the confirmation
+        String text="Hey "+user.getName()+"!!\n"+
+                "Your Booking for "+appointmentRequestDto.getVaccineType().toString()+" has Successfully Done.\n" +
+                "Center Name: "+ appointment.getDoctor().getVaccinationCenter().getName()
+                +"\nDoctor Name: "+ appointment.getDoctor().getName()
+                +"\nDate : "+ appointment.getDateOfAppointment().toString()
+                +"\nLocation: "+appointment.getDoctor().getVaccinationCenter().getLocation();
+        String subject="Vaccination Booked!!";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@gmail.com");
+        message.setTo(user.getEmailId());
+        message.setSubject(subject);
+        message.setText(text);
+        emailSender.send(message);
+
+
+
         return AppointmentTransformer.appointmentToAppointmentResponseDto(appointment);
 
     }
