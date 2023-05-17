@@ -18,6 +18,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> getAllUserWithDose1Only();
     @Query(value = "select * from user u where u.gender='MALE' and u.is_dose1_taken=false",nativeQuery = true)
     List<User> getAllMaleWithNoVaccination();
-    @Query(value = "select * from user u where u.gender='FEMALE' and u.is_dose2_take=true",nativeQuery = true)
+    @Query(value = "select * from user u where u.gender='FEMALE' and u.is_dose2_taken=true",nativeQuery = true)
     List<User> findAllFemaleFullyVaccinated();
 }

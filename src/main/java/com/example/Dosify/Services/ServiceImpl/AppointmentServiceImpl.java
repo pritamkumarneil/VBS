@@ -45,8 +45,11 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new DoctorNotFoundException("Doctor doesn't Exist with given Id");
         }
         Doctor doctor= optionalDoctor.get();
-
+        // if doctor and user exist
+        // then if user wants to take dose 1
         if(appointmentRequestDto.getDoseNo()== DoseNo.DOSE_1){
+            if(user.isDose1Taken())
+                throw new Dose1NotTakenException("Already taken this dose. book for dose 2");
             Dose1 dose1=dose1Service.createDose1(user,appointmentRequestDto.getVaccineType());
             user.setDose1Taken(true);
             user.setDose1(dose1);
