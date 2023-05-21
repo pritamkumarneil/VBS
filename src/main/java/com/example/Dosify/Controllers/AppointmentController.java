@@ -22,5 +22,7 @@ public class AppointmentController {
         AppointmentResponseDto appointmentResponseDto=appointmentService.addAppointment(appointmentRequestDto);
         return new ResponseEntity<>(appointmentResponseDto, HttpStatus.CREATED);
     }
-
+    // generate certificate
+      // -> One dose
+      // -> Both dose
 }

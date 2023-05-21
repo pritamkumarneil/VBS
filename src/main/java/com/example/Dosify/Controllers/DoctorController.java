@@ -36,4 +36,8 @@ public class DoctorController {
         List<DoctorResponseDto> doctorResponseDtos=doctorService.getAllDoctors();
         return  new ResponseEntity<>(doctorResponseDtos,HttpStatus.ACCEPTED);
     }
+    //get all the doctors who have more than 10 appointments
+    // get all the doctors who's age is above 40
+    // get the ration of male to female doctors
+    // update the details of the doctor based on email of the doctor
 }
